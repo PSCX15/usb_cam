@@ -1,0 +1,26 @@
+<launch>
+    <node name="left" pkg="usb_cam" type="usb_cam_node" ns="stereo" respawn="true">
+	<param name="video_device" type="str" value="/dev/video0" />
+	<param name="image_width" type="int" value="640" />
+	<param name="image_height" type="int" value="480" />
+	<param name="pixel_format" type="str" value="yuyv" />
+	<param name="framerate" type="int" value="5" />
+        <param name="camera_info_url" type="str" value="package://usb_cam/640x480/calib/left-ost.yaml" />
+    </node>
+    <node name="right" pkg="usb_cam" type="usb_cam_node" ns="stereo" respawn="true">
+	<param name="video_device" type="str" value="/dev/video1" />
+	<param name="image_width" type="int" value="640" />
+	<param name="image_height" type="int" value="480" />
+	<param name="pixel_format" type="str" value="yuyv" />
+	<param name="framerate" type="int" value="5" />
+        <param name="camera_info_url" type="str" value="package://usb_cam/640x480/calib//right-ost.yaml" />
+    </node>
+    <node name="proc" pkg="stereo_image_proc" type="stereo_image_proc" ns="stereo">
+	<param name="queue_size" type="int" value="10" />
+	<param name="approximate_sync" type="bool" value="true" />
+    </node>
+<!--    <node name="disparity" pkg="image_view" type="disparity_view" args="image:=/stereo/disparity" output="screen">-->
+<!--	<param name="approximate_sync" type="bool" value="True" />-->
+<!--    </node>-->
+</launch>
+
