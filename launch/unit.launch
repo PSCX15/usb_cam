@@ -1,0 +1,29 @@
+<launch>
+
+	<!-- The usb_cam smallest unit -->
+	<arg name="DEVICE"/>
+	<arg name="CAMERA" default="undefined" />
+	<arg name="NS" />
+	<arg name="NODE_NAME" default="camera"/>
+	
+	<arg name="WIDTH" default="320"/>
+	<arg name="HEIGHT" default="240"/>
+	
+	<arg name="CALIB" default="" />
+	
+	<arg name="FPS" default="5"/>
+	<arg name="PUBLISH_FRAME" default="false"/>
+	
+	<node ns="$(arg NS)" name="$(arg NODE_NAME)" pkg="usb_cam" type="usb_cam_node" output="screen" >
+		<param name="video_device" value="$(arg DEVICE)" />
+		
+		<param name="camera_info_url" value="$(arg CALIB)"/>
+		<param name="image_width" value="$(arg WIDTH)" />
+		<param name="image_height" value="$(arg HEIGHT)" />
+		<param name="pixel_format" value="yuyv" />
+		<param name="framerate" value="$(arg FPS)" />
+		<param name="camera_name" value="$(arg CAMERA)" />	
+		<param name="camera_frame_id" value="usb_cam" />
+		<param name="io_method" value="mmap"/>
+	</node>
+</launch>

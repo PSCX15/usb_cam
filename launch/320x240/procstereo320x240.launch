@@ -1,0 +1,50 @@
+<launch>
+
+	<!-- The GStreamer framerate needs to be an integral fraction -->
+	<arg name="NS" value="stereo"/>
+	
+	<arg name="CAMERA" default="logitech" />
+	<arg name="WIDTH" value="320"/>
+	<arg name="HEIGHT" value="240"/>
+	<arg name="FPS" value="5/1"/>
+	
+	<arg name="PUBLISH_FRAME" default="false"/>
+	<arg name="unit" value="$(find usb_cam)/launch/unit.launch" />
+	
+	<include file="$(arg unit)">
+		<!--require DEVICE, ?CAMERA, NS, ?NODE_NAME, WIDTH, HEIGHT, ?CALIB, ?FPS, ?PUBLISH_FRAME -->
+		<arg name="NODE_NAME" value="right"/>
+		<arg name="DEVICE" value="/dev/video0"/>
+		
+		<!--<arg name="CALIB" value=""/>-->
+
+		<arg name="CAMERA" value="$(arg CAMERA)"/>
+		<arg name="NS" value="$(arg NS)"/>
+		<arg name="WIDTH" value="$(arg WIDTH)"/>
+		<arg name="HEIGHT" value="$(arg HEIGHT)"/>
+		<arg name="FPS" value="$(arg FPS)"/>
+		<arg name="PUBLISH_FRAME" value="$(arg PUBLISH_FRAME)"/>
+	</include>
+	
+	<include file="$(arg unit)">
+		<!--require DEVICE, ?CAMERA, NS, ?NODE_NAME, WIDTH, HEIGHT, ?CALIB, ?FPS, ?PUBLISH_FRAME -->
+		<arg name="NODE_NAME" value="left"/>
+		<arg name="DEVICE" value="/dev/video1"/>
+		
+		<!--<arg name="CALIB" value=""/>-->
+
+		<arg name="CAMERA" value="$(arg CAMERA)"/>
+		<arg name="NS" value="$(arg NS)"/>
+		<arg name="WIDTH" value="$(arg WIDTH)"/>
+		<arg name="HEIGHT" value="$(arg HEIGHT)"/>
+		<arg name="FPS" value="$(arg FPS)"/>
+		<arg name="PUBLISH_FRAME" value="$(arg PUBLISH_FRAME)"/>
+	</include>
+	
+	<node name="proc" pkg="stereo_image_proc" type="stereo_image_proc" ns="stereo">
+		<param name="queue_size" type="int" value="10" />
+		<param name="approximate_sync" type="bool" value="true" />
+	</node>
+
+</launch>
+

@@ -1,0 +1,14 @@
+<launch>
+
+	<arg name="stereo" value="$(find usb_cam)/launch/640x480/stereo640x480.launch" />
+	
+	<include file="$(arg stereo)">
+	</include>
+	
+	<node name="proc" pkg="stereo_image_proc" type="stereo_image_proc" ns="stereo">
+		<param name="queue_size" type="int" value="10" />
+		<param name="approximate_sync" type="bool" value="true" />
+	</node>
+
+</launch>
+
