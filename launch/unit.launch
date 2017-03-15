@@ -23,7 +23,7 @@
 		<param name="pixel_format" value="yuyv" />
 		<param name="framerate" value="$(arg FPS)" />
 		<param name="camera_name" value="$(arg CAMERA)" />	
-		<param name="camera_frame_id" value="usb_cam" />
+		<param name="camera_frame_id" value="camera_link" />
 		<param name="io_method" value="mmap"/>
 	</node>
 </launch>
