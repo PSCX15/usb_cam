@@ -55,6 +55,7 @@
 #include <usb_cam/usb_cam.h>
 
 #define CLEAR(x) memset (&(x), 0, sizeof (x))
+#define TESTTESTTEST 84
 
 namespace usb_cam {
 
@@ -377,7 +378,9 @@ int UsbCam::init_mjpeg_decoder(int image_width, int image_height)
   avcodec_context_ = avcodec_alloc_context3(avcodec_);
 #pragma message("libavcodec"LIBAVCODEC_VERSION_MAJOR"end")
 #pragma message LIBAVCODEC_VERSION_MAJOR
+#pragma message("test"TESTTESTTEST)
 #if LIBAVCODEC_VERSION_MAJOR < 55
+#error "bad version"
   avframe_camera_ = avcodec_alloc_frame();
   avframe_rgb_ = avcodec_alloc_frame();
 #else
