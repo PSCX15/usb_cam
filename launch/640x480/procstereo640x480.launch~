@@ -1,0 +1,15 @@
+<launch>
+
+	<arg name="stereo" value="$(find usb_cam)/launch/640x480/stereo640x480.launch" />
+	<arg name="proc" value="$(find usb_cam)/launch/proc.launch" />
+	
+	<include file="$(arg stereo)">
+	</include>
+	<include file="$(arg proc)">
+	</include>
+	
+
+
+
+</launch>
+
