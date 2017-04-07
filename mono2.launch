@@ -1,9 +1,0 @@
-<launch>
-  <node name="single_camera" pkg="usb_cam" type="usb_cam_node">
-	<param name="video_device" type="str" value="/dev/video1" />
-	<param name="image_width" type="int" value="640" />
-	<param name="image_height" type="int" value="480" />
-	<param name="pixel_format" type="str" value="yuyv" />
-	<param name="framerate" type="int" value="10" />
-  </node>
-</launch>

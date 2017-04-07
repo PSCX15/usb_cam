@@ -12,10 +12,14 @@
 	<arg name="CALIB" default="" />
 	
 	<arg name="FPS" default="5"/>
+	
+	<arg name="FAT" default="False"/>
 	<arg name="PUBLISH_FRAME" default="false"/>
 	
-	<node ns="$(arg NS)" name="$(arg NODE_NAME)" pkg="usb_cam" type="usb_cam_node" output="screen" >
+	<node ns="$(arg NS)" name="$(arg NODE_NAME)" pkg="usb_cam" type="usb_cam_node" output="screen" args="image_raw:=image_raw_fat">
 		<param name="video_device" value="$(arg DEVICE)" />
+		
+		<remap from="image_raw" to="image_raw_fat"/>
 		
 		<param name="camera_info_url" value="$(arg CALIB)"/>
 		<param name="image_width" value="$(arg WIDTH)" />

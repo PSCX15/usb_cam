@@ -7,6 +7,10 @@
 	<arg name="WIDTH" value="640"/>
 	<arg name="HEIGHT" value="480"/>
 	<arg name="FPS" value="5"/>
+	<arg name="ratioX" value="1"/>
+	<arg name="ratioY" value="2"/>
+	
+	<arg name="FAT" value="True"/>
 	
 	<arg name="PUBLISH_FRAME" default="false"/>
 	<arg name="unit" value="$(find usb_cam)/launch/unit.launch" />
@@ -15,11 +19,13 @@
 	<include file="$(arg unit)">
 		<!--require DEVICE, ?CAMERA, NS, ?NODE_NAME, WIDTH, HEIGHT, ?CALIB, ?FPS, ?PUBLISH_FRAME -->
 		<arg name="NODE_NAME" value="right"/>
-		<arg name="DEVICE" value="/dev/video1"/>		
+		<arg name="DEVICE" value="/dev/video0"/>		
 		<arg name="CALIB" value="$(arg CALIB_FOLDER)/right.yaml"/>
+		<arg name="FAT" value="$(arg FAT)"/>
+		
 
 		<arg name="CAMERA" value="$(arg CAMERA)-right"/>
-		<arg name="NS" value="$(arg NS)"/>
+		<arg name="NS" value="$(arg NS)/fat"/>
 		<arg name="WIDTH" value="$(arg WIDTH)"/>
 		<arg name="HEIGHT" value="$(arg HEIGHT)"/>
 		<arg name="FPS" value="$(arg FPS)"/>
@@ -29,16 +35,23 @@
 	<include file="$(arg unit)">
 		<!--require DEVICE, ?CAMERA, NS, ?NODE_NAME, WIDTH, HEIGHT, ?CALIB, ?FPS, ?PUBLISH_FRAME -->
 		<arg name="NODE_NAME" value="left"/>
-		<arg name="DEVICE" value="/dev/video0"/>
+		<arg name="DEVICE" value="/dev/video1"/>
 		
 		<arg name="CALIB" value="$(arg CALIB_FOLDER)/left.yaml"/>
+		
+		<arg name="FAT" value="$(arg FAT)"/>
 
 		<arg name="CAMERA" value="$(arg CAMERA)-left"/>
-		<arg name="NS" value="$(arg NS)"/>
+		<arg name="NS" value="$(arg NS)/fat"/>
 		<arg name="WIDTH" value="$(arg WIDTH)"/>
 		<arg name="HEIGHT" value="$(arg HEIGHT)"/>
 		<arg name="FPS" value="$(arg FPS)"/>
 		<arg name="PUBLISH_FRAME" value="$(arg PUBLISH_FRAME)"/>
 	</include>
+	
+	<node name="drop_left_raw" type="drop" pkg="topic_tools" args="/stereo/fat/left/image_raw $(arg ratioX) $(arg ratioY) /stereo/left/image_raw"></node>
+	<node name="drop_left_info" type="drop" pkg="topic_tools" args="/stereo/fat/left/camera_info $(arg ratioX) $(arg ratioY) /stereo/left/camera_info"></node>
+	<node name="drop_right_raw" type="drop" pkg="topic_tools" args="/stereo/fat/right/image_raw $(arg ratioX) $(arg ratioY) /stereo/right/image_raw"></node>
+	<node name="drop_right_info" type="drop" pkg="topic_tools" args="/stereo/fat/right/camera_info $(arg ratioX) $(arg ratioY) /stereo/right/camera_info"></node>
 
 </launch>
